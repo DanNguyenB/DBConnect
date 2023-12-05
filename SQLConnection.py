@@ -15,12 +15,18 @@ connection = pyodbc.connect("Driver={ODBC Driver 17 for SQL Server};"
                             "Trusted_Connection=yes;")
 
 # Executing a query to select the whole table
-cursor = connection.cursor()
-cursor.execute("SELECT * FROM [PracticeDatabase].[dbo].[SalesOrders$]")
-row = cursor.fetchone() 
-while row:
-    print (row) 
-    row = cursor.fetchone()
+#cursor = connection.cursor()
+#cursor.execute("SELECT * FROM [PracticeDatabase].[dbo].[SalesOrders$]")
+#row = cursor.fetchone() 
+#while row:
+    #print (row) 
+    #row = cursor.fetchone()
     
 # Inserting a new row into the table
+cursor = connection.cursor()
+cursor.execute("INSERT INTO [PracticeDatabase].[dbo].[SalesOrders$] DEFAULT VALUES")
+connection.commit()
+
+#(2023, 12, 5, 0, 0)
+
 
