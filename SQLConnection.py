@@ -35,21 +35,23 @@ isDone = False
 #else
     
 # Inserting a new row into the table
-region = input("Please enter the region: ")
-rep = input("Please enter the name of the sales representative: ")
-item = input("Please enter the name of the item: ")
-units = float(input("Please enter the number of items that have been bought: "))
-cost = float(input("Please enter the cost of the item: "))
-total = units * cost
-date = datetime.now()
+# region = input("Please enter the region: ")
+# rep = input("Please enter the name of the sales representative: ")
+# item = input("Please enter the name of the item: ")
+# units = float(input("Please enter the number of items that have been bought: "))
+# cost = float(input("Please enter the cost of the item: "))
+# total = units * cost
+# date = datetime.now()
 
-cursor = connection.cursor()
-cursor.execute("INSERT INTO [PracticeDatabase].[dbo].[SalesOrders$] ([OrderDate], [Region], [Rep], [Item], [Units], [Unit Cost], [Total])\
-               VALUES (?, ?, ?, ?, ?, ?, ?)", (date, region, rep, item, units, cost, total))
-connection.commit()
+# cursor = connection.cursor()
+# cursor.execute("INSERT INTO [PracticeDatabase].[dbo].[SalesOrders$] ([OrderDate], [Region], [Rep], [Item], [Units], [Unit Cost], [Total])\
+#                VALUES (?, ?, ?, ?, ?, ?, ?)", (date, region, rep, item, units, cost, total))
+# connection.commit()
 
 # Update row
 #cursor = connection.cursor()
+#cursor.execute("UPDATE [PracticeDatabase].[dbo].[SalesOrders$] SET Region = 'West' WHERE Total = 545.58")
+#connection.commit()
 
 
 # Delete Row
