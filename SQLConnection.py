@@ -51,34 +51,54 @@ while isDone == False:
         connection.commit()
 
     elif choice == '3':
-
+ 
+      
        orderChoice = input("Please enter which order you would like to update by entering its order ID ")
        
+       # Allows continuous updating until the user is done modifying the sales order.
        updateDone = False
-       
+       cursor = connection.cursor()
+       date = datetime.now()
        while updateDone == False:
-           change = input("What would you like to change? \n1. Region \n2. Rep \n3. Item \n4. Units \n5. Cost \n6. Finish updating")
+           change = input("What would you like to change? \n1. Region \n2. Rep \n3. Item \n4. Units \n5. Cost \n6. Finish updating \n")
            if change == '1':
                region = input("Please enter the new region: ")
+               cursor.execute("UPDATE [PracticeDatabase].[dbo].[SalesOrders$] SET OrderDate = ?, Region = ?  WHERE OrderID = ?", (date), (region), (orderChoice))
+               connection.commit()
            elif change == '2':
                rep = input("Please enter the new sales representative: ")
+               cursor.execute("UPDATE [PracticeDatabase].[dbo].[SalesOrders$] SET OrderDate = ?, Rep = ?  WHERE OrderID = ?", (date), (rep), (orderChoice))
+               connection.commit()
            elif change == '3':
                item = input("Please enter the name of the new item: ")
+               cursor.execute("UPDATE [PracticeDatabase].[dbo].[SalesOrders$] SET OrderDate = ?, Item = ?  WHERE OrderID = ?", (date), (item), (orderChoice))
+               connection.commit()
            elif change == '4':
-               units = input("Please enter the new number of units: ")
+               units = float(input("Please enter the new number of units: "))
+               
+               # Grabs the cost of the item in order to recalculate the total cost
+               cursor.execute("SELECT [Unit Cost] FROM [PracticeDatabase].[dbo].[SalesOrders$] WHERE OrderID = ?", (orderChoice))
+               cost = cursor.fetchval()
+               total = units * cost
+               
+               cursor.execute("UPDATE [PracticeDatabase].[dbo].[SalesOrders$] SET OrderDate = ?, Units = ?, Total = ?  WHERE OrderID = ?", (date), (units), (total), (orderChoice))
+               connection.commit()
            elif change == '5':
-               cost = input("Please enter the new cost: ")
+                cost = float(input("Please enter the new cost: "))
+                
+                # Grabs the number of units in order to recalculate the total cost
+                cursor.execute("SELECT [Units] FROM [PracticeDatabase].[dbo].[SalesOrders$] WHERE OrderID = ?", (orderChoice))
+                units = cursor.fetchval()
+                total = units * cost
+                
+                cursor.execute("UPDATE [PracticeDatabase].[dbo].[SalesOrders$] SET OrderDate = ?, [Unit Cost] = ?, Total = ?  WHERE OrderID = ?", (date), (cost), (total), (orderChoice))
+                connection.commit()
            elif change == '6':
                updateDone = True
        
-       # Update row by OrderID
-       cursor = connection.cursor()
-       cursor.execute("UPDATE [PracticeDatabase].[dbo].[SalesOrders$] SET Region = ? WHERE OrderID = ?", (region), (orderChoice))
-       connection.commit()
-
     elif choice == '4':
         
-        orderChoice = input("Please enter the order ID. ")
+        orderChoice = input("Please enter the order ID to delete. ")
         
         # Delete Row
         cursor = connection.cursor()
