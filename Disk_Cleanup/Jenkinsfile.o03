@@ -7,7 +7,7 @@ def runDiskCleanup() {
 	if (params.DRY_RUN) {
 		commandParams += " -d"
 	}
-	bat "python cleanupdisk.py -k ${params.DAYS_OLD}${commandParams}"
+	bat "python Disk_Cleanup\\scripts\\cleanupdisk.py -k ${params.DAYS_OLD}${commandParams}"
 }
 
 pipeline {
