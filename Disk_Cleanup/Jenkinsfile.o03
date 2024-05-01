@@ -32,12 +32,6 @@ pipeline {
         ''')
     }
     stages {
-        stage("dependencies") {
-            steps {
-                //bat "pip install -r requirements.txt --upgrade --force-reinstall"
-				bat "dir"
-            }
-        }
         stage('Delete Folders Matching Criteria') {
             steps {
                 script {
